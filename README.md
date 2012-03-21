@@ -2,26 +2,23 @@
 
 *OK, Schrödinger's cat is The Maybe. Whether you love or hate her could be a Maybe too. "maybe one day" is a lurking Maybe. But at some point one's got to **specify**.*
 
-A Maybe is an enhanced `$.Deferred` interface featuring a simple way to specify when it should be resolved and/or when it should be rejected.
+A Maybe is an enhanced `$.Deferred` interface, featuring a simple way to specify when it should be resolved and/or rejected.
 
-It relies on an evented conception of the deferred lifecycle. One is expected to write down *evented conditions* triggering either the deferrable *resolution* or *rejection*. This is made possible by exposing a custom Promise to the outside world, accepting `doIf` and `failIf` condition-factories. As with other legacy Deferred's methods, several conditions may be specified.
+It relies on an evented conception of the deferred's associated promise lifecycle. One is expected to write down *evented conditions* triggering either the deferrable *resolution* or *rejection*. This is made possible by exposing a custom Promise to the outside world, accepting `doIf` and `failIf` condition-factories. As with other legacy Deferred's methods, several conditions may be specified.
 
 By default, a Maybe will always succeed, but if it is provided a grace-period (with the `wait` option), it will wait until this delay is over to succeed. This period may even be infinite. In the mean time, the Promise could be either early-resolved (if an event matching a `doIf` condition occurs) or rejected (if an event matching a `failIf` condition occurs).
 
 ## Example
 
-*Say you want to display a notification to several users connected to your application. The notification is about enforcing a setting, live, but you want to allow for a 10s delay before actually performing the action. The whole point is managing some time for the users to decide whether they really want this forced-setting to apply. During the 10s grace-period, the users should be able to reject the proposed action by clicking on a cancel button within the notification.*
+*Say you want to display a notification to several users connected to your application. The notification is about enforcing a setting, live, but you want to allow for a 10s delay before actually performing the action. The whole point is managing some time for the users to decide whether they really want this forced-setting to apply. During the 10s grace-period, the users should be able to reject the proposed action by clicking on a cancel button within the notification. Different choices mean different consequences in the application lifecycle.*
 
 Using a typical, fully-fledged notification plugin, you'd create a new `Notif` object of some kind, passing content as an option to be inserted internally in some predefinite way, and you'd hook-in somehow to intercept and handle the user interaction (*click*) because, most of the time, the very "plugin" does not actually expose any kind of "hook" nor does any kind of "smart" binding for you.
 
 Using jquery.maybe and a low-tech approach, you'd do:
 
 ``` js
-// this sets up a Promise
-$('.my_notification').maybe({wait: 10000});
-
-// attach failure condition and callbacks as usual
-$('.my_notification').failIf('click', '.cancel')
+$('.my_notification').maybe({wait: 10000})
+                     .failIf('click', '.cancel')
                      .done(success)
                      .fail(failure)
                      .always(hide);
