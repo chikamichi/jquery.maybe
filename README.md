@@ -67,4 +67,4 @@ Once resolved/rejected, the notification's state would be settled, that is, the 
 
 ## License
 
-MIT.
+MIT, see LICENSE.txt.
