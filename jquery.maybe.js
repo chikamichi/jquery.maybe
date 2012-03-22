@@ -47,7 +47,7 @@
      * milliseconds (or immediately, ie. after 0 ms, if no delay was provided).
      */
     resolveLater: function() {
-      if (!_settings.wait) _settings.wait = 0;
+      if (!_settings.wait) _settings.wait = -1;
       if (_settings.wait < 0) return;
       $this._maybe.delayedResolver = window.setTimeout(_internals.resolver, _settings.wait);
     },
