@@ -30,7 +30,7 @@ where `success`,`failure` and `hide` are callbacks of your choice. The first two
 
 ## Available options for `maybe()`
 
-* **wait** - in milliseconds, delay before resolving the action (default: `0`, that is, immediate resolution). This makes sense when providing a failure condition with `failIf()` and/or a success condition with `doIf()` (see below). If `wait` is set to -1, the action is pending for an undefinite amount of time and must be resolved explicitely by matching a resolution condition. If no explicit wait time is passed, the action will be resolved with no delay.
+* **wait** - in milliseconds, delay before resolving the action (default: `-1`). When `wait` is set to -1, the action is pending for an undefinite amount of time and must be resolved explicitely by matching a resolution condition (as expressed with `doIf` / `failIf`). If `wait` is set to a positive value, then this define a deadline before which the Maybe may be (haha) resolved/rejected earlier, otherwise it will be automagically resolved when the time is passed.
 * **clear** - whether to clear the promise once resolved/rejected (default: `true`). See the note below.
 
 ## Custom methods available on the exposed Promise
