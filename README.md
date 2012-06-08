@@ -1,8 +1,8 @@
 ## Maybe
 
-*OK, Schrödinger's cat is The Maybe. Whether you love or hate her could be a Maybe too. "maybe one day" is a lurking Maybe. But at some point one's got to **specify**.*
+*Schrödinger's cat is the Ultimate Maybe*
 
-A Maybe is an enhanced `$.Deferred` interface, featuring a simple way to specify when it should be resolved and/or rejected.
+A Maybe is an enhanced `$.Deferred` interface, featuring a simple way to specify *when* it should be resolved and/or rejected.
 
 It relies on an evented conception of the deferred's associated promise lifecycle. One is expected to write down *evented conditions* triggering either the deferrable *resolution* or *rejection*. This is made possible by exposing a custom Promise to the outside world, accepting `doIf` and `failIf` condition-factories. As with other legacy Deferred's methods, several conditions may be specified.
 
