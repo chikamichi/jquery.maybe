@@ -2,13 +2,13 @@
 
 *Schrödinger's cat would be the ultimate Maybe, man.*
 
-Let me introduce the highly respectable Maybe. It is an enhanced `$.Deferred` interface, featuring a simple way to specify *when* and *why* it should be resolved and/or rejected. It really tries to be a more expressive, less all-around alternative to [jQuery.when](http://api.jquery.com/jQuery.when/) (If you want to know about Deferred or refresh your knowledge, head to [this review](http://eng.wealthfront.com/2012/12/jquerydeferred-is-most-important-client.html)).
+Let me introduce the highly respectable Maybe. It is an enhanced `$.Deferred` interface, featuring a simple way to specify *when* and *why* it should be resolved and/or rejected. It really tries to be a more expressive, less all-around alternative to [jQuery.when](http://api.jquery.com/jQuery.when/) (If you want to know about Deferred or refresh your knowledge, head to [this review](http://eng.wealthfront.com/2012/12/jquerydeferred-is-most-important-client.html) and [the doc](http://api.jquery.com/category/deferred-object/)).
 
 This custom interface relies on a fully evented interface for the promise object associated to the deferrable. When using a Maybe, one is expected to specify *evented conditions for success and failure*. Those conditions, if and when matched, will trigger the deferrable's *resolution* or *rejection* callbacks accordingly.
 
 This feature is made possible by exposing a custom Promise to the outside world that accepts `doIf` and `failIf` helpers to specify the aforementioned evented conditions.
 
-By default, a Maybe will wait for an event to occur, managing a so-called "grace-period". One can specify a finite timeout instead, in which case the Maybe will wait until this delay is over to succeed. In both cases, the Maybe can be either early-resolved (`doIf`) or early-rejected (`failIf`).
+By default, a Maybe will wait for an event to occur, managing a so-called "infinite grace-period". One can specify a finite timeout instead, in which case the Maybe will wait until this delay is over to succeed. In both cases, the Maybe can be either early-resolved (`doIf`) or early-rejected (`failIf`).
 
 ## Example
 
