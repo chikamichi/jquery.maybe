@@ -2,13 +2,13 @@
 
 *Schrödinger's cat would be the ultimate Maybe, man.*
 
-Let me introduce the highly respectable Maybe. It is an enhanced `$.Deferred` interface, featuring a simple way to specify *when* it should be resolved and/or rejected. It is all about timing, timing, timing. (If you want to know about Deferred or refresh your knowledge, head to [this review](http://eng.wealthfront.com/2012/12/jquerydeferred-is-most-important-client.html)).
+Let me introduce the highly respectable Maybe. It is an enhanced `$.Deferred` interface, featuring a simple way to specify *when* and *why* it should be resolved and/or rejected. It really tries to be a more expressive, less all-around alternative to [jQuery.when](http://api.jquery.com/jQuery.when/) (If you want to know about Deferred or refresh your knowledge, head to [this review](http://eng.wealthfront.com/2012/12/jquerydeferred-is-most-important-client.html)).
 
-This custom interface introduces an evented design for the promise object associated to the deferrable. When using a Maybe, one is expected to specify *evented conditions for success and failure*. Those conditions, if and when matched, will trigger the deferrable's *resolution* or *rejection* callbacks accordingly.
+This custom interface relies on a fully evented interface for the promise object associated to the deferrable. When using a Maybe, one is expected to specify *evented conditions for success and failure*. Those conditions, if and when matched, will trigger the deferrable's *resolution* or *rejection* callbacks accordingly.
 
-This feature is made possible by exposing a custom Promise to the outside world (here is the very Maybe), one that accepts `doIf` and `failIf` condition-factories to specify the aforementioned evented conditions.
+This feature is made possible by exposing a custom Promise to the outside world that accepts `doIf` and `failIf` helpers to specify the aforementioned evented conditions.
 
-By default, a Maybe will wait for an event to occur, managing a so-called "grace-period". One can specify a timeout instead, in which case the Maybe will wait until this delay is over to succeed (the default setup is that of an infinite delay). In the mean time, the Maybe can be either early-resolved if an event matching a `doIf` condition occurs, or early-rejected if an event matching a `failIf` condition shows up.
+By default, a Maybe will wait for an event to occur, managing a so-called "grace-period". One can specify a finite timeout instead, in which case the Maybe will wait until this delay is over to succeed. In both cases, the Maybe can be either early-resolved (`doIf`) or early-rejected (`failIf`).
 
 ## Example
 
@@ -35,13 +35,13 @@ where `success`,`failure` and `hide` are callbacks of your choice. The first two
 
 ## Custom methods available on the exposed Promise
 
-* **failIf** - specifies a condition for resolving the action in failure. The signature matches the flat arguments' flavour of `$.on()`, but *without the handler* (delegation is jquery.maybe's job). Therefore, just pass an event, and an optional element:
+* **failIf** - specifies a condition for rejecting the action. The signature matches the flat arguments' flavour of `$.on()`:
 
 ``` js
 $('.foo').maybe().failIf('my.event', '.my_element');
 ```
 
-* **doIf** - specifies a condition for resolving the action in success. Same pattern as `failIf`.
+* **doIf** - specifies a condition for resolving the action. Same pattern as `failIf`.
 
 Apart from that, this is [a regular Promise](http://api.jquery.com/category/deferred-object/) as defined by jQuery!
 
@@ -63,7 +63,7 @@ When using the second form, it is important to understand that the exposed promi
 
 ## On clear
 
-In our example, once resolved or rejected, using legacy Deferred's behavior, the notification's state would be settled. That is, the exposed promise would be either resolved or rejected, *and would remain so forever*. When using jquery.maybe with a non-unique element, such as the `.my_notification` in the previous example (there could be several notifications displayed at once!), it could turn really annoying. Therefore, by default, jquery.maybe will clear the "connection" between the element and its now-settled promise. A new call to `maybe()` on this element will simply generate a new promise, replacing the staled one. If this is not what you want, you may pass `{clear: false}` to leave the promise in peace and stare at it dead until you die too.
+In our example, once resolved or rejected, using legacy Deferred's behavior, the notification's state would be settled. That is, the exposed promise would be either resolved or rejected, *and would remain so forever*. When using jquery.maybe with a non-unique element, such as the `.my_notification` in the previous example (there could be several notifications displayed at once!), it could turn really annoying. I think this is the typical use-case, therefore by default, jquery.maybe will clear the "binding" between the element and its now-settled promise/maybe. A new call to `maybe()` on this element will simply generate a new, viviv folk, replacing the staled one. If this is not what you want, you can pass `{clear: false}` in the options to leave the promise in peace and stare at it dead until you die too.
 
 ## License
 
