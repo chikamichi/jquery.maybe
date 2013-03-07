@@ -1,0 +1,38 @@
+{
+  "name": "maybe",
+  "title": "jQuery Maybe",
+  "description": "jQuery Promise with evented resolution/rejection conditions.",
+  "keywords": [
+    "deferred",
+    "promise",
+    "event",
+    "condition",
+    "constraint",
+    "timing"
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "Jean-Denis Vauguet",
+    "email": "jd@vauguet.fr",
+    "url": "https://github.com/chikamichi"
+  },
+  "maintainers": [
+    {
+      "name": "Jean-Denis Vauguet",
+      "email": "jd@vauguet.fr",
+      "url": "https://github.com/chikamichi"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/chikamichi/jquery.maybe/blob/master/LICENSE.txt"
+    }
+  ],
+  "bugs": "https://github.com/chikamichi/jquery.maybe/issues",
+  "homepage": "https://github.com/chikamichi/jquery.maybe",
+  "docs": "https://github.com/chikamichi/jquery.maybe",
+  "dependencies": {
+    "jquery": ">=1.5"
+  }
+}
