@@ -1,3 +1,5 @@
+![unmaintained](http://img.shields.io/badge/status-unmaintained-red.png)
+
 ## Maybe
 
 *Schrödinger's cat would be the ultimate Maybe, man.*
